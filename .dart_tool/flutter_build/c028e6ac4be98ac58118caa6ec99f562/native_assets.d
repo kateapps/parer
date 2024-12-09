@@ -1,0 +1,1 @@
+ /Users/kilxsx/Downloads/football_par-main/.dart_tool/flutter_build/c028e6ac4be98ac58118caa6ec99f562/native_assets.yaml: 
