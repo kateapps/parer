@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -84,8 +86,18 @@ class _Button extends StatelessWidget {
     );
   }
 
-  void _shareApp(BuildContext context) {
-    Share.share('Check out this app in AppStore!');
+  void _shareApp(BuildContext context) async {
+    if (Platform.isIOS) {
+      final box = context.findRenderObject() as RenderBox?;
+      final offset = box?.localToGlobal(Offset.zero) ?? Offset.zero;
+      final size = box?.size ?? Size.zero;
+      final rect = Rect.fromLTWH(offset.dx, offset.dy, size.width, size.height);
+
+      await Share.share('Check out this app in AppStore!',
+          sharePositionOrigin: rect);
+    } else {
+      await Share.share('Check out this app in AppStore!');
+    }
   }
 
   void _openUrl(String url) async {
